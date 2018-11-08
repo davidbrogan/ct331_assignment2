@@ -39,9 +39,6 @@
   (if (empty? lst) tree
       (add_list (cdr lst) (insert_item (car lst) tree))))
 
-(define (higher_order_add_list lst tree left)
-  (if (empty? lst) tree
-      (higher_order_add_list (cdr lst) (higher_order_addItem (car lst) tree left) left)))
 
 
 
@@ -49,16 +46,8 @@
 (define (tree_sort lst)
   (sortTree (add_list lst '())))
 
-;F 
-(define (higher_order_tree_sort lst orderFunc)
- (sortTree (higher_order_add_list lst '() orderFunc)))
 
-(define (higher_order_addItem item tree left)
-  (cond [(empty? tree) (list '() item '())]
-        [(equal? item (cadr tree)) tree]
-        [(left item (cadr tree))
-         (list (higher_order_addItem item (left_child tree) left) (cadr tree) (right_child tree))]
-        [else (list (left_child tree) (cadr tree) (higher_order_addItem item (right_child tree) left))]))
+
 
 
 
@@ -81,10 +70,6 @@
 (display "sort tree from input list:\n")
 (tree_sort to_Sort)
 
-(display "\nHigher order tree sort:\n")
-(display "ASCENDING:\n")
-(higher_order_tree_sort to_Sort <)
-(display "\nDescending:\n")
-(higher_order_tree_sort to_Sort >)
+
 (display "\nAscending based on last digit:\n")
 (higher_order_tree_sort to_Sort ascending_last_digit)
